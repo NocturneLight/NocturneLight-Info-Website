@@ -12,6 +12,7 @@ const client = generateClient<Schema>();
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.css',
 })
+
 export class TodosComponent implements OnInit {
   todos: any[] = [];
 
@@ -40,5 +41,9 @@ export class TodosComponent implements OnInit {
     } catch (error) {
       console.error('error creating todos', error);
     }
+  }
+
+  deleteTodo(id: string): void {
+    client.models.Todo.delete({ id })
   }
 }
