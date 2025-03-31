@@ -1,3 +1,5 @@
+// TODO: Delete this file.
+/*
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { generateClient } from 'aws-amplify/data';
@@ -47,3 +49,4 @@ export class TodosComponent implements OnInit {
     client.models.Todo.delete({ id })
   }
 }
+*/

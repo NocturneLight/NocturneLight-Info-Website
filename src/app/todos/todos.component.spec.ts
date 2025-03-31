@@ -1,3 +1,5 @@
+// TODO: Delete this file.
+/*
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TodosComponent } from './todos.component';
@@ -11,7 +13,7 @@ describe('TodosComponent', () => {
       imports: [TodosComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(TodosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -21,3 +23,4 @@ describe('TodosComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+*/
