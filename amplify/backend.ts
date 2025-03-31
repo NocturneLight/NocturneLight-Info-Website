@@ -1,5 +1,6 @@
-// TODO: Remove the commented out code.
-//import { defineBackend } from '@aws-amplify/backend';
+// TODO: Delete commented out code.
+
+import { defineBackend } from '@aws-amplify/backend';
 //import { auth } from './auth/resource';
 //import { data } from './data/resource';
 
@@ -7,3 +8,4 @@
 //  auth,
 //  data,
 //});
+defineBackend({})
