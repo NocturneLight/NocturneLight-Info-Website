@@ -1,9 +1,9 @@
 <body style="height: 250vh;">
-  <section style="position: relative; height: 50vh;">
+  <section class="message-viewport">
     <h1 #message class="text-center introductory-message-format" (animationend)="cleanUpMessage($event)"></h1>
-    <div id="upside-down-triangle" class="mx-auto"></div>
+    <div id="upside-down-triangle" class="mx-auto" (click)="scrollDown(aboutText)"></div>
   </section>
 
-  <h1 class="position-absolute top-100 bottom-100">The quick brown fox jumped over the lazy river.</h1>
+  <h1 #aboutText class="position-absolute top-100 bottom-100">The quick brown fox jumped over the lazy river.</h1>
 </body>
 

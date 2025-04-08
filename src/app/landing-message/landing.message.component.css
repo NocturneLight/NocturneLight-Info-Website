@@ -10,6 +10,11 @@
   border-top: 40px solid #000000;
 }
 
+.message-viewport {
+  position: relative;
+  height: 50vh;
+}
+
 .introductory-message-format {
   min-font-size: 2rem;
   font-family: 'Roboto', sans-serif;

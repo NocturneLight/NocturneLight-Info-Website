@@ -76,4 +76,10 @@ export class LandingMessageComponent implements AfterViewInit
     // Wait 2500 milliseconds before starting to show the next message.
     setTimeout(() => this.beginTextCycle(), 2500);
   }
+
+  // Scrolls the webpage to the given element.
+  public scrollDown(scrollToElement: HTMLElement): void
+  {
+    scrollToElement.scrollIntoView();
+  }
 }
