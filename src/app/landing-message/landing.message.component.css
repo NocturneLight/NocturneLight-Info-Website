@@ -1,8 +1,23 @@
+#upside-down-triangle {
+  position: sticky;
+  top: 100%;
+  bottom: 100%;
+
+  width: 0;
+  height: 0;
+  border-left: 20px solid transparent ;
+  border-right: 20px solid transparent;
+  border-top: 40px solid #000000;
+}
+
 .introductory-message-format {
-  font-size: 2rem;
+  min-font-size: 2rem;
   font-family: 'Roboto', sans-serif;
 
-  padding: 5rem;
+  width: 100vw;
+  height: 15vh;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .fade-in {
@@ -33,3 +48,4 @@
     opacity: 0;
   }
 }
+
