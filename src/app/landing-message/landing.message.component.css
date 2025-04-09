@@ -1,13 +1,20 @@
+body {
+  height: 250vh;
+}
+
+/*TODO: Make a triangle in Affinity Studio.*/
 #upside-down-triangle {
   position: sticky;
-  top: 100%;
+  top:100%;
   bottom: 100%;
 
   width: 0;
   height: 0;
-  border-left: 20px solid transparent ;
+  border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-top: 40px solid #000000;
+
+  animation: float 1s infinite;
 }
 
 .message-viewport {
@@ -16,6 +23,7 @@
 }
 
 .introductory-message-format {
+  color: white;
   min-font-size: 2rem;
   font-family: 'Roboto', sans-serif;
 
@@ -23,6 +31,13 @@
   height: 15vh;
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.background-format {
+  /*background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;*/
+  background: linear-gradient(180deg, rgb(0, 0, 0), rgb(0, 0, 0), rgb(255, 255, 255));
 }
 
 .fade-in {
@@ -51,6 +66,20 @@
 
   to {
     opacity: 0;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0rem);
+  }
+
+  50% {
+    transform: translateY(2rem);
+  }
+
+  100% {
+    transform: translateY(0rem);
   }
 }
 

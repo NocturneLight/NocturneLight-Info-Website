@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild, HostListener, Inject} from "@angular/core";
+import {DOCUMENT} from "@angular/common";
 
 @Component({
   selector: 'app-landing-message',
@@ -10,17 +11,24 @@ import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild} from "@angul
 
 export class LandingMessageComponent implements AfterViewInit
 {
-  private messageListIndex: number = 0;
-  private messageCharacterIndex: number = 0;
-
-  public messageList: string[] = [
+  private messageList: string[] = [
     "A steel blade of exceptional software design forged by a blaze of bad code.",
     "A flame of creativity stoked by the greatest games an imaginative child with an Nintendo 64 could play."
   ];
 
+  private imagePaths: string[] = [
+    "./assets/2.JPG",
+    "./assets/ocean_top.jpg"
+  ];
+
+  private backgroundIndex: number = 0;
+  private messageListIndex: number = 0;
+  private messageCharacterIndex: number = 0;
+  public currentBackground: string = this.imagePaths[this.backgroundIndex];
+
   @ViewChild("message") messageElement: ElementRef | undefined;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {}
 
   // Begins the typewriter effect on the element holding the currentMessage field
   // as well as any other start up sequences that need to happen.
@@ -81,5 +89,23 @@ export class LandingMessageComponent implements AfterViewInit
   public scrollDown(scrollToElement: HTMLElement): void
   {
     scrollToElement.scrollIntoView();
+  }
+
+  // TODO: Change background here.
+  @HostListener('window:scroll', ['$event'])
+  public scrollEvent(event: MouseEvent): void
+  {
+    const currentWindow: Window | undefined = this.document.defaultView?.window;
+
+    if (currentWindow === undefined)
+      throw new Error("Window is undefined.");
+
+    if (this.document.body.scrollHeight - (currentWindow.innerHeight + currentWindow.scrollY) < 1)
+    {
+      this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length;
+      this.currentBackground = this.imagePaths[this.backgroundIndex];
+
+      console.log(event);
+    }
   }
 }

@@ -1,9 +1,16 @@
-<body style="height: 250vh;">
+<!--<body class="background-format" [style]="'background-image: url(' + currentBackground + ')'">-->
+<body class="background-format">
   <section class="message-viewport">
+    <!--
+    The introductory text the user sees when first landing on the page.
+    This cycles between a number of sentences in a list found in landing.message.component.ts.
+    -->
     <h1 #message class="text-center introductory-message-format" (animationend)="cleanUpMessage($event)"></h1>
+
+    <!--An upside down triangle created in CSS. Code can be found in landing.message.component.css-->
     <div id="upside-down-triangle" class="mx-auto" (click)="scrollDown(aboutText)"></div>
   </section>
 
+  <!--TODO: Replace text.-->
   <h1 #aboutText class="position-absolute top-100 bottom-100">The quick brown fox jumped over the lazy river.</h1>
 </body>
-
