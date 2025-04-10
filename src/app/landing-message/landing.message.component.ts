@@ -1,10 +1,12 @@
 import {AfterViewInit, Component, ElementRef, Renderer2, ViewChild, HostListener, Inject} from "@angular/core";
-import {DOCUMENT} from "@angular/common";
+import {DOCUMENT, NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-landing-message',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './landing.message.component.html',
   styleUrl: './landing.message.component.css'
 })
@@ -24,6 +26,7 @@ export class LandingMessageComponent implements AfterViewInit
   private backgroundIndex: number = 0;
   private messageListIndex: number = 0;
   private messageCharacterIndex: number = 0;
+  public upsideDownTrianglePath: string = "assets/UpsideDownTriangle.svg"
   public currentBackground: string = this.imagePaths[this.backgroundIndex];
 
   @ViewChild("message") messageElement: ElementRef | undefined;

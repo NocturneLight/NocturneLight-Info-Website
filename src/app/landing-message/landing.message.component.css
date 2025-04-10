@@ -2,18 +2,13 @@ body {
   height: 250vh;
 }
 
-/*TODO: Make a triangle in Affinity Studio.*/
-#upside-down-triangle {
+#triangle-container {
   position: sticky;
-  top:100%;
+  top: 100%;
   bottom: 100%;
+}
 
-  width: 0;
-  height: 0;
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;
-  border-top: 40px solid #000000;
-
+#floating-triangle {
   animation: float 1s infinite;
 }
 
@@ -34,9 +29,6 @@ body {
 }
 
 .background-format {
-  /*background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;*/
   background: linear-gradient(180deg, rgb(0, 0, 0), rgb(0, 0, 0), rgb(255, 255, 255));
 }
 

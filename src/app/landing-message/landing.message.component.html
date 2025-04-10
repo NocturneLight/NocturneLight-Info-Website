@@ -8,7 +8,15 @@
     <h1 #message class="text-center introductory-message-format" (animationend)="cleanUpMessage($event)"></h1>
 
     <!--An upside down triangle created in CSS. Code can be found in landing.message.component.css-->
-    <div id="upside-down-triangle" class="mx-auto" (click)="scrollDown(aboutText)"></div>
+    <!--<div id="upside-down-triangle" class="mx-auto" (click)="scrollDown(aboutText)"></div>-->
+    <div id="triangle-container" class="text-center">
+      <img id="floating-triangle"
+           ngSrc="{{upsideDownTrianglePath}}"
+           height="50"
+           width="50"
+           alt="A floating upside-down triangle."
+           (click)="scrollDown(aboutText)" />
+    </div>
   </section>
 
   <!--TODO: Replace text.-->
