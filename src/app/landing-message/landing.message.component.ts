@@ -19,8 +19,8 @@ export class LandingMessageComponent implements AfterViewInit
   ];
 
   private imagePaths: string[] = [
-    "./assets/2.JPG",
-    "./assets/ocean_top.jpg"
+    "assets/ConceptArt1.jpg",
+    "assets/ocean_top.jpg"
   ];
 
   private backgroundIndex: number = 0;
