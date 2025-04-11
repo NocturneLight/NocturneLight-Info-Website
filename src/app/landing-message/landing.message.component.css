@@ -28,8 +28,17 @@ body {
   padding-right: 2rem;
 }
 
+.about-background {
+  width: 100vw;
+  height: 75vh;
+
+  background-position: center;
+  background-size: contain;
+  box-shadow: 25px 25px 50px 0 whitesmoke inset, -25px -25px 50px 0 whitesmoke inset;
+}
+
 .background-format {
-  background: linear-gradient(180deg, rgb(0, 0, 0), rgb(0, 0, 0), rgb(255, 255, 255));
+  background: linear-gradient(180deg, rgb(0, 0, 0), rgb(0, 0, 0), rgba(66, 6, 18, 0.8));
 }
 
 .fade-in {

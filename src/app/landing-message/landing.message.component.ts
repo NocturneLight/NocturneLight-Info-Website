@@ -105,8 +105,8 @@ export class LandingMessageComponent implements AfterViewInit
 
     if (this.document.body.scrollHeight - (currentWindow.innerHeight + currentWindow.scrollY) < 1)
     {
-      this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length;
-      this.currentBackground = this.imagePaths[this.backgroundIndex];
+      //this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length;
+      //this.currentBackground = this.imagePaths[this.backgroundIndex];
 
       console.log(event);
     }

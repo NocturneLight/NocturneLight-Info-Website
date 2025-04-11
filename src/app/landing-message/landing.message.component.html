@@ -19,6 +19,15 @@
     </div>
   </section>
 
-  <!--TODO: Replace text.-->
-  <h1 #aboutText class="position-absolute top-100 bottom-100">The quick brown fox jumped over the lazy river.</h1>
+  <div
+    class="z-n1 position-absolute top-100 align-content-center about-background"
+    [style]="'background-image: url(' + currentBackground + ')'"></div>
+
+  <h1 #aboutText class="position-absolute top-100 text-center" style="color: #dadbf9; height: 75vh; font-size: 2.5vw;">
+    The quick brown fox jumped over the lazy river and destroyed the world as we know it.
+
+    <br><br>It was a dark day.
+    <br><br>It was a dark night.
+    <br><br>It was a dark world.
+  </h1>
 </body>
