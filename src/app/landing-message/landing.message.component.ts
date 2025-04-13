@@ -28,8 +28,10 @@ export class LandingMessageComponent implements AfterViewInit
   private messageCharacterIndex: number = 0;
   public upsideDownTrianglePath: string = "assets/UpsideDownTriangle.svg"
   public currentBackground: string = this.imagePaths[this.backgroundIndex];
+  private timeoutIdToClear: ReturnType<typeof setTimeout> = setTimeout(() => {});
 
   @ViewChild("message") messageElement: ElementRef | undefined;
+  @ViewChild("backgroundImage") imageElement: ElementRef | undefined;
 
   constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {}
 
@@ -46,14 +48,14 @@ export class LandingMessageComponent implements AfterViewInit
   private beginTextCycle(): void
   {
     this.messageListIndex = (this.messageListIndex + 1) % this.messageList.length; // Modulus to ensure we are always in bounds.
-    this.displayMessage() // NOTE: Can't inline this since it's a recursive function.
+    this.displayMessage(); // NOTE: Can't inline this since it's a recursive function.
   }
 
   // Fades in each character of a message until the whole message is visible.
   private displayMessage(): void
   {
     const message: string = this.messageList[this.messageListIndex];
-    const span: Element = this.renderer.createElement("span")
+    const span: Element = this.renderer.createElement("span");
 
     // Adds the current character in the message to a span element, and then adds that to the h1
     // element that holds the whole message, and then starts the fade in animation on the span element.
@@ -68,12 +70,13 @@ export class LandingMessageComponent implements AfterViewInit
       if (this.messageCharacterIndex === message.length)
         setTimeout(() => this.renderer.addClass(this.messageElement?.nativeElement, "fade-out"), 2500);
       else
-        this.displayMessage()
+        this.displayMessage();
     }, 75);
   }
 
-  // Runs upon the completion of any animation. If the fade out animation plays, clears out
-  // the main h1 element holding the message and sets things up before starting the next message.
+  // Runs upon the completion of any animation associated with the message element.
+  // If the fade out animation plays, clears out the main h1 element holding the message
+  // and sets things up before starting the next message.
   public cleanUpMessage(event: AnimationEvent): void
   {
     // Do nothing if it is not the fadeOutEffect that is playing.
@@ -81,34 +84,94 @@ export class LandingMessageComponent implements AfterViewInit
       return;
 
     this.messageCharacterIndex = 0;
-    this.renderer.setProperty(this.messageElement?.nativeElement, "innerHTML", "")
+    this.renderer.setProperty(this.messageElement?.nativeElement, "innerHTML", "");
     this.renderer.removeClass(this.messageElement?.nativeElement, "fade-out");
 
     // Wait 2500 milliseconds before starting to show the next message.
     setTimeout(() => this.beginTextCycle(), 2500);
   }
 
+  // Runs upon the completion of any animation associated with the background image element.
+  // Holds the current background image for 3000 milliseconds and then fades it out, increments
+  // the image index, and then fades in the new image to show.
+  public imageAnimationController(event: AnimationEvent): void
+  {
+    // Do nothing if less than 50% of the image is visible.
+    if (!this.isElementInViewport(this.imageElement?.nativeElement, 50))
+      return;
+
+    // Wait 3000 milliseconds then fade out the current image when the
+    // fade in effect has finished.
+    if (event.animationName.includes("fadeInEffect"))
+    {
+      this.timeoutIdToClear = setTimeout(() => this.fadeOutImage(), 5000);
+    }
+    // Increment the background image index and get the current
+    // image from the list, then fade in the new image when the
+    // fade out effect has finished.
+    else if (event.animationName.includes("fadeOutEffect"))
+    {
+      this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length; // Modulus to ensure we're always in bounds.
+      this.currentBackground = this.imagePaths[this.backgroundIndex];
+      this.fadeInImage();
+    }
+  }
+
+  // Runs the fade out animation then removes the fade in animation to prevent
+  // conflicts from occurring.
+  private fadeOutImage(): void
+  {
+    this.renderer.addClass(this.imageElement?.nativeElement, "fade-out");
+    this.renderer.removeClass(this.imageElement?.nativeElement, "fade-in");
+  }
+
+  // Runs the fade in animation then removes the fade out animation to prevent
+  // conflicts from occurring.
+  private fadeInImage(): void
+  {
+    this.renderer.addClass(this.imageElement?.nativeElement, "fade-in");
+    this.renderer.removeClass(this.imageElement?.nativeElement, "fade-out");
+  }
+
+  // Function which runs when the user clicks on the upside-down triangle.
   // Scrolls the webpage to the given element.
   public scrollDown(scrollToElement: HTMLElement): void
   {
     scrollToElement.scrollIntoView();
   }
 
-  // TODO: Change background here.
-  @HostListener('window:scroll', ['$event'])
-  public scrollEvent(event: MouseEvent): void
+  // Checks if an element is on screen by at least a given certain percentage.
+  // Code adapted from: https://stackoverflow.com/questions/30943662/check-if-element-is-partially-in-viewport/51121566#51121566
+  private isElementInViewport(element: Element, percentVisible: number): boolean
   {
     const currentWindow: Window | undefined = this.document.defaultView?.window;
+    let rectangle = element.getBoundingClientRect();
+    let windowHeight = (currentWindow?.innerHeight || this.document.documentElement.clientHeight);
 
-    if (currentWindow === undefined)
-      throw new Error("Window is undefined.");
+    return !(
+      Math.floor(100 - (((rectangle.top >= 0 ? 0 : rectangle.top) / +-rectangle.height) * 100)) < percentVisible ||
+      Math.floor(100 - ((rectangle.bottom - windowHeight) / rectangle.height) * 100) < percentVisible
+    );
+  }
 
-    if (this.document.body.scrollHeight - (currentWindow.innerHeight + currentWindow.scrollY) < 1)
+  // Function which runs whenever the user scrolls the webpage.
+  // Fades in the background image if at least 50% of the element is on screen.
+  // Fades out the background image if at least 25% of the background image is visible
+  // on screen and contains a fade-in class.
+  @HostListener('window:scroll', ['$event'])
+  public scrollEvent(): void
+  {
+    // Fade in the image.
+    if (this.isElementInViewport(this.imageElement?.nativeElement, 50))
     {
-      //this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length;
-      //this.currentBackground = this.imagePaths[this.backgroundIndex];
-
-      console.log(event);
+      this.fadeInImage();
+    }
+    // Fade out the image.
+    else if (this.isElementInViewport(this.imageElement?.nativeElement, 25)
+      && this.imageElement?.nativeElement.classList.contains("fade-in"))
+    {
+      this.fadeOutImage();
+      clearTimeout(this.timeoutIdToClear); // Clear the currently running timeout to prevent side effects.
     }
   }
 }

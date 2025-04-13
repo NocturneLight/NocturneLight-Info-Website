@@ -42,7 +42,7 @@ body {
 }
 
 .fade-in {
-  animation: fadeInEffect 750ms;
+  animation: fadeInEffect 750ms forwards;
 }
 
 .fade-out {

@@ -22,8 +22,11 @@
   </section>
 
   <!--The current background image placed behind the gradient of the main body.-->
-  <div class="z-n1 position-absolute top-100 align-content-center about-background"
-       [style]="'background-image: url(' + currentBackground + ')'"></div>
+  <div #backgroundImage
+       class="z-n1 position-absolute top-100 align-content-center about-background"
+       style="opacity: 0;"
+       [style]="'background-image: url(' + currentBackground + ')'"
+       (animationend)="imageAnimationController($event)"></div>
 
   <!--The text about me.-->
   <h5 #aboutText class="position-absolute top-100 text-center px-3" style="color: #dadbf9;">
