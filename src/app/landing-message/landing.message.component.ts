@@ -19,19 +19,22 @@ export class LandingMessageComponent implements AfterViewInit
   ];
 
   private imagePaths: [image: string, artist: string][] = [
-    ["assets/epoch1.jpg", "Amaco Studio and DeadFishDream"],
-    ["assets/epoch2.jpg", "Amaco Studio and DeadFishDream"],
-    ["assets/epoch3.jpg", "Amaco Studio and DeadFishDream"],
-    ["assets/genocide1.jpg", "MyssDark"],
-    ["assets/genocide2.jpg", "MyssDark"],
-    ["assets/genocide3.jpg", "MyssDark"]
+    ["assets/Landing_Page/genocide1.jpg", "MyssDark"],
+    ["assets/Landing_Page/genocide2.jpg", "MyssDark"],
+    ["assets/Landing_Page/genocide3.jpg", "MyssDark"],
+    ["assets/Landing_Page/aqua1.jpg", "Zylinder"],
+    ["assets/Landing_Page/aqua2.jpg", "Zylinder"],
+    ["assets/Landing_Page/aqua3.jpg", "Zylinder"],
+    ["assets/Landing_Page/epoch1.jpg", "Amaco Studio and DeadFishDream"],
+    ["assets/Landing_Page/epoch2.jpg", "Amaco Studio and DeadFishDream"],
+    ["assets/Landing_Page/epoch3.jpg", "Amaco Studio and DeadFishDream"]
   ];
 
   private backgroundIndex: number = 0;
   private messageListIndex: number = 0;
   private messageCharacterIndex: number = 0;
   public upsideDownTrianglePath: string = "assets/UpsideDownTriangle.svg"
-  private timeoutIdToClear: ReturnType<typeof setTimeout> = setTimeout(() => {});
+  private imageCycleTimeoutId: ReturnType<typeof setTimeout> = setTimeout(() => {});
   public currentBackground: [image: string, artist: string] = this.imagePaths[this.backgroundIndex];
 
   @ViewChild("message") messageElement: ElementRef | undefined;
@@ -109,7 +112,7 @@ export class LandingMessageComponent implements AfterViewInit
     // fade in effect has finished.
     if (event.animationName.includes("fadeInEffect"))
     {
-      this.timeoutIdToClear = setTimeout(() => this.fadeOutImage(), 5000);
+      this.imageCycleTimeoutId = setTimeout(() => this.fadeOutImage(), 5000);
     }
     // Increment the background image index and get the current
     // image from the list, then fade in the new image when the
@@ -150,8 +153,8 @@ export class LandingMessageComponent implements AfterViewInit
   private isElementInViewport(element: Element, percentVisible: number): boolean
   {
     const currentWindow: Window | undefined = this.document.defaultView?.window;
-    let rectangle = element.getBoundingClientRect();
-    let windowHeight = (currentWindow?.innerHeight || this.document.documentElement.clientHeight);
+    let rectangle: DOMRect = element.getBoundingClientRect();
+    let windowHeight: number = (currentWindow?.innerHeight || this.document.documentElement.clientHeight);
 
     return !(
       Math.floor(100 - (((rectangle.top >= 0 ? 0 : rectangle.top) / +-rectangle.height) * 100)) < percentVisible ||
@@ -172,7 +175,7 @@ export class LandingMessageComponent implements AfterViewInit
       this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-in-triangle");
     }
     // Show the floating triangle.
-    else if (!this.isElementInViewport(this.imageElement?.nativeElement, 25)
+    else if (!this.isElementInViewport(this.imageElement?.nativeElement, 60)
       && this.triangleElement?.nativeElement.classList.contains("fade-out-triangle"))
     {
       this.renderer.addClass(this.triangleElement?.nativeElement, "fade-in-triangle");
@@ -189,7 +192,7 @@ export class LandingMessageComponent implements AfterViewInit
       && this.imageElement?.nativeElement.classList.contains("fade-in"))
     {
       this.fadeOutImage();
-      clearTimeout(this.timeoutIdToClear); // Clear the currently running timeout to prevent side effects.
+      clearTimeout(this.imageCycleTimeoutId); // Clear the currently running timeout to prevent side effects.
     }
   }
 }
