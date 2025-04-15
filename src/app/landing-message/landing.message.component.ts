@@ -18,20 +18,25 @@ export class LandingMessageComponent implements AfterViewInit
     "A flame of creativity stoked by the greatest games an imaginative child with an Nintendo 64 could play."
   ];
 
-  private imagePaths: string[] = [
-    "assets/ConceptArt1.jpg",
-    "assets/ocean_top.jpg"
+  private imagePaths: [image: string, artist: string][] = [
+    ["assets/epoch1.jpg", "Amaco Studio and DeadFishDream"],
+    ["assets/epoch2.jpg", "Amaco Studio and DeadFishDream"],
+    ["assets/epoch3.jpg", "Amaco Studio and DeadFishDream"],
+    ["assets/genocide1.jpg", "MyssDark"],
+    ["assets/genocide2.jpg", "MyssDark"],
+    ["assets/genocide3.jpg", "MyssDark"]
   ];
 
   private backgroundIndex: number = 0;
   private messageListIndex: number = 0;
   private messageCharacterIndex: number = 0;
   public upsideDownTrianglePath: string = "assets/UpsideDownTriangle.svg"
-  public currentBackground: string = this.imagePaths[this.backgroundIndex];
   private timeoutIdToClear: ReturnType<typeof setTimeout> = setTimeout(() => {});
+  public currentBackground: [image: string, artist: string] = this.imagePaths[this.backgroundIndex];
 
   @ViewChild("message") messageElement: ElementRef | undefined;
   @ViewChild("backgroundImage") imageElement: ElementRef | undefined;
+  @ViewChild("floatingTriangle") triangleElement: ElementRef | undefined;
 
   constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {}
 
@@ -155,12 +160,25 @@ export class LandingMessageComponent implements AfterViewInit
   }
 
   // Function which runs whenever the user scrolls the webpage.
-  // Fades in the background image if at least 50% of the element is on screen.
-  // Fades out the background image if at least 25% of the background image is visible
-  // on screen and contains a fade-in class.
+  // Fades in and out certain images depending on how much of it is on screen and
+  // if certain classes are presently attached to it.
   @HostListener('window:scroll', ['$event'])
   public scrollEvent(): void
   {
+    // Hide the floating triangle.
+    if (this.isElementInViewport(this.imageElement?.nativeElement, 90))
+    {
+      this.renderer.addClass(this.triangleElement?.nativeElement, "fade-out-triangle");
+      this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-in-triangle");
+    }
+    // Show the floating triangle.
+    else if (!this.isElementInViewport(this.imageElement?.nativeElement, 25)
+      && this.triangleElement?.nativeElement.classList.contains("fade-out-triangle"))
+    {
+      this.renderer.addClass(this.triangleElement?.nativeElement, "fade-in-triangle");
+      this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-out-triangle");
+    }
+
     // Fade in the image.
     if (this.isElementInViewport(this.imageElement?.nativeElement, 50))
     {

@@ -2,12 +2,6 @@ body {
   height: 250vh;
 }
 
-#triangle-container {
-  position: sticky;
-  top: 100%;
-  bottom: 100%;
-}
-
 #floating-triangle {
   animation: float 1s infinite;
 }
@@ -48,6 +42,16 @@ body {
 .fade-out {
   opacity: 0;
   animation: fadeOutEffect 750ms forwards;
+}
+
+.fade-out-triangle {
+  opacity: 0;
+  animation: fadeOutEffect 200ms forwards;
+}
+
+.fade-in-triangle {
+  opacity: 1;
+  animation: fadeInEffect 200ms forwards;
 }
 
 /* Animations */

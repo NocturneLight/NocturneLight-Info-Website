@@ -8,8 +8,11 @@
     <h1 #message class="text-center introductory-message-format" (animationend)="cleanUpMessage($event)"></h1>
 
     <!--An upside down triangle created in CSS. Code can be found in landing.message.component.css-->
-    <!--<div id="upside-down-triangle" class="mx-auto" (click)="scrollDown(aboutText)"></div>-->
-    <div id="triangle-container" class="text-center">
+    <!--
+      NOTE: We have a div here because we get warnings when the width and height for the floating triangle
+      don't match what's in the style guide.
+    -->
+    <div #floatingTriangle class="position-relative top-50 text-center">
       <img id="floating-triangle"
            ngSrc="{{upsideDownTrianglePath}}"
            height="50"
@@ -25,8 +28,10 @@
   <div #backgroundImage
        class="z-n1 position-absolute top-100 align-content-center about-background"
        style="opacity: 0;"
-       [style]="'background-image: url(' + currentBackground + ')'"
-       (animationend)="imageAnimationController($event)"></div>
+       [style]="'background-image: url(' + currentBackground[0] + ')'"
+       (animationend)="imageAnimationController($event)">
+  </div>
+
 
   <!--The text about me.-->
   <h5 #aboutText class="position-absolute top-100 text-center px-3" style="color: #dadbf9;">
@@ -38,4 +43,8 @@
     <br><br>It was a dark place.
     <br><br>It was a dark time.
   </h5>
+
+  <!--<footer class="position-absolute text-end fst-italic opacity-75 px-5" style="width: 100vw; top: 165vh; color: ghostwhite; font-size: small;">
+    Current Art by {{currentBackground[1]}}
+  </footer>-->
 </body>
