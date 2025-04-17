@@ -38,6 +38,7 @@ export class LandingMessageComponent implements AfterViewInit
   public currentBackground: [image: string, artist: string] = this.imagePaths[this.backgroundIndex];
 
   @ViewChild("message") messageElement: ElementRef | undefined;
+  @ViewChild("aboutText") aboutTextElement: ElementRef | undefined;
   @ViewChild("backgroundImage") imageElement: ElementRef | undefined;
   @ViewChild("floatingTriangle") triangleElement: ElementRef | undefined;
 
@@ -121,6 +122,7 @@ export class LandingMessageComponent implements AfterViewInit
     {
       this.backgroundIndex = (this.backgroundIndex + 1) % this.imagePaths.length; // Modulus to ensure we're always in bounds.
       this.currentBackground = this.imagePaths[this.backgroundIndex];
+
       this.fadeInImage();
     }
   }
@@ -139,6 +141,38 @@ export class LandingMessageComponent implements AfterViewInit
   {
     this.renderer.addClass(this.imageElement?.nativeElement, "fade-in");
     this.renderer.removeClass(this.imageElement?.nativeElement, "fade-out");
+  }
+
+  // Runs the fade out animation then removes the fade in animation for the
+  // upside-down triangle.
+  private fadeOutTriangle(): void
+  {
+    this.renderer.addClass(this.triangleElement?.nativeElement, "fade-out-triangle");
+    this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-in-triangle");
+  }
+
+  // Runs the fade in animation then removes the fade out animation for the
+  // upside-down triangle.
+  private fadeInTriangle()
+  {
+    this.renderer.addClass(this.triangleElement?.nativeElement, "fade-in-triangle");
+    this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-out-triangle");
+  }
+
+  // Runs the fade out animation then removes the fade in animation for the
+  // upside-down triangle.
+  private fadeOutAboutText(): void
+  {
+    this.renderer.addClass(this.aboutTextElement?.nativeElement, "fade-out");
+    this.renderer.removeClass(this.aboutTextElement?.nativeElement, "fade-in");
+  }
+
+  // Runs the fade in animation then removes the fade out animation for the
+  // upside-down triangle.
+  private fadeInAboutText(): void
+  {
+    this.renderer.addClass(this.aboutTextElement?.nativeElement, "fade-in");
+    this.renderer.removeClass(this.aboutTextElement?.nativeElement, "fade-out");
   }
 
   // Function which runs when the user clicks on the upside-down triangle.
@@ -168,30 +202,21 @@ export class LandingMessageComponent implements AfterViewInit
   @HostListener('window:scroll', ['$event'])
   public scrollEvent(): void
   {
-    // Hide the floating triangle.
-    if (this.isElementInViewport(this.imageElement?.nativeElement, 90))
-    {
-      this.renderer.addClass(this.triangleElement?.nativeElement, "fade-out-triangle");
-      this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-in-triangle");
-    }
-    // Show the floating triangle.
-    else if (!this.isElementInViewport(this.imageElement?.nativeElement, 60)
-      && this.triangleElement?.nativeElement.classList.contains("fade-out-triangle"))
-    {
-      this.renderer.addClass(this.triangleElement?.nativeElement, "fade-in-triangle");
-      this.renderer.removeClass(this.triangleElement?.nativeElement, "fade-out-triangle");
-    }
-
-    // Fade in the image.
+    // Fade in the image and about text while fading out the upside-down triangle.
     if (this.isElementInViewport(this.imageElement?.nativeElement, 50))
     {
+      this.fadeOutTriangle();
       this.fadeInImage();
+      this.fadeInAboutText();
     }
-    // Fade out the image.
+    // Fade out the image and about text while fading in the upside-down triangle.
     else if (this.isElementInViewport(this.imageElement?.nativeElement, 25)
       && this.imageElement?.nativeElement.classList.contains("fade-in"))
     {
+      this.fadeInTriangle();
       this.fadeOutImage();
+      this.fadeOutAboutText();
+
       clearTimeout(this.imageCycleTimeoutId); // Clear the currently running timeout to prevent side effects.
     }
   }
