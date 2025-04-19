@@ -39,13 +39,14 @@ export class LandingMessageComponent implements AfterViewInit
 
   @ViewChild("message") messageElement: ElementRef | undefined;
   @ViewChild("aboutText") aboutTextElement: ElementRef | undefined;
+  @ViewChild("wizardHat") wizardHatElement: ElementRef | undefined;
   @ViewChild("backgroundImage") imageElement: ElementRef | undefined;
   @ViewChild("floatingTriangle") triangleElement: ElementRef | undefined;
 
   constructor(private renderer: Renderer2, @Inject(DOCUMENT) private document: Document) {}
 
   // Begins the typewriter effect on the element holding the currentMessage field
-  // as well as any other start up sequences that need to happen.
+  // as well as any other start-up sequences that need to happen.
   // For further reference, see: https://angular.dev/guide/components/lifecycle#ngafterviewinit
   ngAfterViewInit(): void
   {
@@ -109,7 +110,7 @@ export class LandingMessageComponent implements AfterViewInit
     if (!this.isElementInViewport(this.imageElement?.nativeElement, 50))
       return;
 
-    // Wait 3000 milliseconds then fade out the current image when the
+    // Wait 3000 milliseconds, then fade out the current image when the
     // fade in effect has finished.
     if (event.animationName.includes("fadeInEffect"))
     {
@@ -175,6 +176,20 @@ export class LandingMessageComponent implements AfterViewInit
     this.renderer.removeClass(this.aboutTextElement?.nativeElement, "fade-out");
   }
 
+  // Runs the fade out animation on the wizard hat, and then removes the fade in animation.
+  private fadeOutWizardHat(): void
+  {
+    this.renderer.addClass(this.wizardHatElement?.nativeElement, "fade-out");
+    this.renderer.removeClass(this.wizardHatElement?.nativeElement, "fade-in");
+  }
+
+  // Runs the fade in animation on the wizard hat, and then removes the fade out animation.
+  private fadeInWizardHat(): void
+  {
+    this.renderer.addClass(this.wizardHatElement?.nativeElement, "fade-in");
+    this.renderer.removeClass(this.wizardHatElement?.nativeElement, "fade-out");
+  }
+
   // Function which runs when the user clicks on the upside-down triangle.
   // Scrolls the webpage to the given element.
   public scrollDown(scrollToElement: HTMLElement): void
@@ -202,18 +217,20 @@ export class LandingMessageComponent implements AfterViewInit
   @HostListener('window:scroll', ['$event'])
   public scrollEvent(): void
   {
-    // Fade in the image and about text while fading out the upside-down triangle.
+    // Fade in the image about text, and wizard hat while fading out the upside-down triangle.
     if (this.isElementInViewport(this.imageElement?.nativeElement, 50))
     {
       this.fadeOutTriangle();
+      this.fadeInWizardHat()
       this.fadeInImage();
       this.fadeInAboutText();
     }
-    // Fade out the image and about text while fading in the upside-down triangle.
+    // Fade out the image, about text, and hat while fading in the upside-down triangle.
     else if (this.isElementInViewport(this.imageElement?.nativeElement, 25)
       && this.imageElement?.nativeElement.classList.contains("fade-in"))
     {
       this.fadeInTriangle();
+      this.fadeOutWizardHat()
       this.fadeOutImage();
       this.fadeOutAboutText();
 

@@ -14,8 +14,15 @@
   padding-right: 2rem;
 }
 
+.about-message-format {
+  color: #dadbf9;
+
+  width: 100vw;
+
+  opacity: 0;
+}
+
 .footer-credit-format {
-  top: 155vh;
   width: 100vw;
 
   font-size: small;
@@ -25,22 +32,26 @@
 .about-background {
   opacity: 0; /* This is so when the page loads, the image starts invisible. */
   width: 100vw;
-  height: 110vh;
+  height: 145vh;
 
   top: 55%;
 
   background-position: center;
-  background-size: contain;
+  background-size: 50%;
   box-shadow: 25px 25px 50px 0 black inset, -25px -25px 50px 0 black inset;
 }
 
 .background-format {
-  height: 230vh;
+  height: 300vh;
   background: linear-gradient(180deg, rgb(0, 0, 0), rgb(0, 0, 0), rgba(66, 6, 18, 0.8));
 }
 
 #floating-triangle {
   animation: float 1s infinite;
+}
+
+#wizard-hat {
+  opacity: 0;
 }
 
 /* Classes containing animations. */
@@ -111,21 +122,176 @@
   }
 }
 
-@media screen and (min-height: 720px) {
-  .footer-credit-format {
-    top: 160vh;
-  }
-}
-
-@media screen and (min-height: 720px) and (max-height: 740px) {
-  .footer-credit-format {
-    top: 158vh;
-  }
-}
 
 @media screen and (max-width: 430px) and (min-height: 768px) and (max-height: 1180px) {
   h5 {
     font-size: 5vw;
+  }
+}
+
+@media screen and (min-height: 720px) {
+  .footer-credit-format {
+    margin-top: 18vh;
+  }
+}
+
+@media screen and (min-height: 829px) {
+  .footer-credit-format {
+    margin-top: 40vh;
+  }
+}
+
+@media screen and (min-height: 844px) {
+  .footer-credit-format {
+    margin-top: 15vh;
+  }
+}
+
+@media screen and (max-width: 390px) and (min-height: 844px) {
+  .footer-credit-format {
+    margin-top: 33vh;
+  }
+}
+
+@media screen and (min-height: 882px) {
+  .footer-credit-format {
+    margin-top: 40vh;
+  }
+}
+
+@media screen and (min-height: 896px) {
+  .footer-credit-format {
+    margin-top: 33vh;
+  }
+}
+
+@media screen and (min-width: 1368px) and (min-height: 912px) {
+  .footer-credit-format {
+    margin-top: 15vh;
+  }
+}
+
+@media screen and (min-height: 1024px) {
+  .footer-credit-format {
+    margin-top: 45vh;
+  }
+}
+
+@media screen and (min-width: 1366px) and (min-height: 1024px) {
+  .footer-credit-format {
+    margin-top: 20vh;
+  }
+}
+
+@media screen and (min-height: 1114px) {
+  .footer-credit-format {
+    margin-top: 50vh;
+  }
+}
+
+@media screen and (min-height: 1280px) {
+  .footer-credit-format {
+    margin-top: 45vh;
+  }
+}
+
+@media screen and (min-width: 1706px) and (min-height: 1280px) {
+  .footer-credit-format {
+    margin-top: 55vh;
+  }
+}
+
+@media screen and (min-height: 1366px) {
+  .footer-credit-format {
+    margin-top: 45vh;
+  }
+}
+
+@media screen and (min-height: 1706px) {
+  .footer-credit-format {
+    margin-top: 47vh;
+  }
+}
+
+@media screen and (max-height: 820px) {
+  .footer-credit-format {
+    margin-top: 15vh;
+  }
+}
+
+@media screen and (max-height: 740px) {
+  .footer-credit-format {
+    margin-top: 15vh;
+  }
+}
+
+@media screen and (max-height: 720px)
+{
+  .footer-credit-format {
+    margin-top: 30vh;
+  }
+}
+
+@media screen and (min-width: 1114px) and (max-height: 720px) {
+  .footer-credit-format {
+    margin-top: 40vh;
+  }
+}
+
+@media screen and (max-height: 690px) {
+  .footer-credit-format {
+    margin-top: 35vh;
+  }
+}
+
+@media screen and (max-height: 667px) {
+  .footer-credit-format {
+    margin-top: 9.5vh;
+  }
+}
+
+@media screen and (max-height: 540px) {
+  .footer-credit-format {
+    margin-top: 15vh;
+  }
+}
+
+@media screen and (max-height: 430px) {
+  #wizard-hat {
+    width: 6.5%;
+    height: 6.5%;
+  }
+
+  .footer-credit-format {
+    margin-top: 6vh;
+  }
+}
+
+
+@media screen and (max-height: 344px) {
+  .footer-credit-format {
+    margin-top: 2vh;
+  }
+}
+
+@media screen and (max-height: 390px) {
+  #wizard-hat {
+    width: 5.5%;
+    height: 5.5%;
+  }
+}
+
+@media screen and (max-height: 375px) {
+  #wizard-hat {
+    width: 8%;
+    height: 8%;
+  }
+}
+
+@media screen and (max-height: 344px) {
+  #wizard-hat {
+    width: 6.7%;
+    height: 6.7%;
   }
 }
 

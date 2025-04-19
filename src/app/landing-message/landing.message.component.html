@@ -31,21 +31,30 @@
        (animationend)="imageAnimationController($event)">
   </div>
 
-  <!--Footer crediting the artist of the image currently displaying as a background.-->
-  <footer class="position-absolute text-center text-md-end fst-italic opacity-75 px-5 footer-credit-format">
-    Current Art by {{currentBackground[1]}}
-  </footer>
+  <section class="text-center position-absolute" style="top: 105vh;">
+    <img #wizardHat
+         id="wizard-hat"
+         ngSrc="assets/WizardHat.svg"
+         width="61"
+         height="120"
+         alt="A wizard hat."
+         priority />
 
-  <!--The text about me.-->
-  <!--TODO: Get the text centered.-->
-  <h5 #aboutText class="position-absolute text-center p-3" style="color: #dadbf9; top: 85vh; width: 100vw; height: 68vh; opacity: 0;">
-    <span style="color: crimson">Antonio</span> is a software engineer with an eye for art and creativity.<br><br>
+    <!--The text about me.-->
+    <h5 #aboutText class="p-3 about-message-format">
+      <span style="color: crimson">Antonio</span> is a software engineer with an eye for art and creativity.<br><br>
 
-    By day, he strives to write exceptional and well-documented code for the client's software with an emphasis on
-    <u>simplicity</u> and <u>maintainability</u>.<br><br>
+      By day, he strives to write exceptional and well-documented code for the client's software with an emphasis on
+      <u>simplicity</u> and <u>maintainability</u>.<br><br>
 
-    By night, he creates the very thing that jump-started his love for software engineering: video games.<br><br>
+      By night, he creates the very thing that jump-started his love for software engineering: video games.<br><br>
 
-    He's on the job market. Shoot an <a href="mailto:requiemrios@gmail.com">email</a> and get the interview process rolling!
-  </h5>
+      He's on the job market. Shoot an <a href="mailto:requiemrios@gmail.com">email</a> and get the interview process rolling!
+    </h5>
+
+    <!--Footer crediting the artist of the image currently displaying as a background.-->
+    <footer class="text-center text-md-end fst-italic opacity-75 px-4 footer-credit-format">
+      Current Art by {{currentBackground[1]}}
+    </footer>
+  </section>
 </body>
