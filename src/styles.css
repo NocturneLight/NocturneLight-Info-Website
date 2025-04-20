@@ -2,7 +2,7 @@ body {
     margin: 0;
     background: white;
     display: flex;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: "Caladea", "STIX", "Liberation Serif", "Lucida Sans", "Georgia", "Times New Roman", Inter, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
     height: 100vh;
     width: 100vw;
     justify-content: center;
