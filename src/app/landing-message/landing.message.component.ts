@@ -14,8 +14,8 @@ import {DOCUMENT, NgOptimizedImage} from "@angular/common";
 export class LandingMessageComponent implements AfterViewInit
 {
   private messageList: string[] = [
-    "A steel blade of exceptional software design forged by a blaze of bad code.",
-    "A flame of creativity stoked by the greatest games an imaginative child with an Nintendo 64 could play."
+    "Simple. Clean. Maintainable. The qualities I strive for when I forge great software.",
+    "A creative flame of passion stoked by the video games of my childhood."
   ];
 
   private imagePaths: [image: string, artist: string][] = [
@@ -57,7 +57,6 @@ export class LandingMessageComponent implements AfterViewInit
   // the message using a typewriter effect.
   private beginTextCycle(): void
   {
-    this.messageListIndex = (this.messageListIndex + 1) % this.messageList.length; // Modulus to ensure we are always in bounds.
     this.displayMessage(); // NOTE: Can't inline this since it's a recursive function.
   }
 
@@ -94,6 +93,8 @@ export class LandingMessageComponent implements AfterViewInit
       return;
 
     this.messageCharacterIndex = 0;
+    this.messageListIndex = (this.messageListIndex + 1) % this.messageList.length; // Modulus to ensure we are always in bounds.
+
     this.renderer.setProperty(this.messageElement?.nativeElement, "innerHTML", "");
     this.renderer.removeClass(this.messageElement?.nativeElement, "fade-out");
 
